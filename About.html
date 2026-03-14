@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About - Chat Station Cafe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="About.css">
+</head>
+<body>
+
+
+
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="About.html">About</a>
+    <a href="Menu.html">Menu</a>
+    <a href="Contact.html">Contact</a>
+</nav>
+
+<section class="section">
+    <h2>About Our Cafe</h2>
+    <p>
+        Chat Station Cafe is a cozy place where friends meet,
+        conversations flow, and delicious food is served.
+        Established in 2026, we aim to create a warm and welcoming
+        atmosphere for everyone.
+    </p>
+</section>
+
+<section class="cafe-gallery">
+
+<h2>Our Cafe Vibes ☕</h2>
+
+<div class="gallery-grid">
+
+    <div class="gallery-card">
+        <img src="images/Sitting.jpg.png">
+        <div class="overlay">
+            <h3>The Quad</h3>
+            <p>"A minimalist four-seat hub designed for collaborative flow and creative energy."</p>
+        </div>
+    </div>
+
+    <div class="gallery-card">
+        <img src="images/lighting.jpg.png">
+        <div class="overlay">
+            <h3>Cafe Interior</h3>
+            <p>"Our cafe's interior is designed to create a cozy and inviting atmosphere, perfect for enjoying your coffee and conversations."</p>
+        </div>
+    </div>
+
+    <div class="gallery-card">
+        <img src="images/Solo-sit.jpg.png">
+        <div class="overlay">
+            <h3>The Solo</h3>
+            <p>"A quiet corner table for those who prefer a more intimate setting."</p>
+        </div>
+    </div>
+
+    <div class="gallery-card">
+        <img src="images/Stand.jpg.png">
+        <div class="overlay">
+            <h3>The Perch</h3>
+            <p>"Perfect for quick coffee runs and casual meetups."</p>
+        </div>
+    </div>
+
+</div>
+
+</section>
+
+<section class="reviews">
+
+    <a href="review.html" class="review-btn">Write a Review</a>
+
+
+<h2 class="review-title">Customer Reviews ⭐</h2>
+
+<div class="reviews-wrapper">
+  
+  <div id="reviews"></div>
+
+</div> 
+<script>
+
+async function loadReviews(){
+
+const res = await fetch("https://cafe-website-n5pyzjm9m-sanchitjadhav007s-projects.vercel.app/api/review");
+const data = await res.json();
+
+let html = "";
+
+data.forEach(r => {
+
+    let stars = "";
+
+for(let i = 1; i <= 5; i++){
+    if(i <= r.rating){
+        stars += '<span class="star filled">★</span>';
+    } else {
+        stars += '<span class="star">★</span>';
+    }
+}
+
+let firstLetter = r.name.charAt(0).toUpperCase();
+
+html += `
+<div class="review-card">
+
+<div class="review-header">
+<div class="review-avatar">${firstLetter}</div>
+<div class="review-name">${r.name}</div>
+</div>
+
+<p class="stars">${stars}</p>
+
+<p>${r.comment}</p>
+
+</div>
+`;
+
+});
+
+document.getElementById("reviews").innerHTML = html;
+
+}
+
+loadReviews();
+
+</script>
+
+<script>
+fetch("http://localhost:5000/reviews")
+.then(res => res.json())
+.then(data => console.log(data));
+</script>
+
+
+<footer>
+    © 2026 Chat Station Cafe
+</footer>
+
+</body>
+</html>

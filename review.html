@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Review | Rate Our Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="review.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="About.html">About</a>
+        <a href="Menu.html">Menu</a>
+        <a href="Contact.html">Contact</a>
+    </nav>
+
+    <div class="main-wrapper">
+        <div class="review-container">
+            <h2>Rate Our Cafe ⭐</h2>
+            <form id="reviewForm">
+                <input type="text" id="name" placeholder="Your Name" required>
+                
+                <select id="rating" required>
+                    <option value="" disabled selected>Select Rating</option>
+                    <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                    <option value="4">⭐⭐⭐⭐ Very Good</option>
+                    <option value="3">⭐⭐⭐ Good</option>
+                    <option value="2">⭐⭐ Average</option>
+                    <option value="1">⭐ Poor</option>
+                </select>
+
+                <textarea id="comment" placeholder="Tell us about your experience..."></textarea>
+
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="review.js"></script>
+</body>
+</html>
