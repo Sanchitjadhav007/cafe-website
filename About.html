@@ -85,7 +85,7 @@
 
 async function loadReviews(){
 
-const res = await fetch("api/review");
+const res = await fetch("cafe-website-7ea0aivk4-sanchitjadhav007s-projects.vercel.app/api/review");
 const data = await res.json();
 
 let html = "";
@@ -130,7 +130,7 @@ loadReviews();
 </script>
 
 <script>
-fetch("http://localhost:5000/reviews")
+fetch("cafe-website-7ea0aivk4-sanchitjadhav007s-projects.vercel.app/api/review")
 .then(res => res.json())
 .then(data => console.log(data));
 </script>
