@@ -27,7 +27,9 @@ document.getElementById("reviewForm").addEventListener("submit", async function(
 // Function to load all reviews
 async function loadReviews() {
   try {
-    const response = await fetch("cafe-website-7ea0aivk4-sanchitjadhav007s-projects.vercel.app/api/review");
+    const response = await fetch("cafe-website-7ea0aivk4-sanchitjadhav007s-projects.vercel.app", {
+      mode: 'cors' // Added mode: 'cors' here
+    });
     const reviews = await response.json();
 
     const container = document.getElementById("reviews-container");
