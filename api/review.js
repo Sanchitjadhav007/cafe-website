@@ -7,11 +7,15 @@ let db;
 
 export default async function handler(req, res) {
 
+  // CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") return res.status(200).end();
+  // Handle preflight request
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
 
   try {
 
@@ -23,23 +27,31 @@ export default async function handler(req, res) {
 
     const collection = db.collection("reviews");
 
+    // Save review
     if (req.method === "POST") {
 
-      await collection.insertOne(req.body);
+      const review = req.body;
 
-      return res.json({message:"Review saved"});
+      await collection.insertOne(review);
+
+      return res.status(200).json({ message: "Review saved" });
+
     }
 
+    // Get reviews
     if (req.method === "GET") {
 
       const reviews = await collection.find().toArray();
 
-      return res.json(reviews);
+      return res.status(200).json(reviews);
+
     }
 
-  } catch(err) {
+  } catch (error) {
 
-    return res.status(500).json({message:"Server error"});
+    console.error(error);
+
+    return res.status(500).json({ message: "Server error" });
+
   }
-
 }
