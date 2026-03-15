@@ -8,9 +8,11 @@ let db;
 export default async function handler(req, res) {
 
   // CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", " https://sanchitjadhav007.github.io/cafe-website/");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  useNewUrlParser: true;
+  useUnifiedTopology: true;
 
   // Handle preflight request
   if (req.method === "OPTIONS") {
@@ -22,7 +24,7 @@ export default async function handler(req, res) {
     if (!client) {
       client = new MongoClient(uri);
       await client.connect();
-      db = client.db("cafe");
+      db = client.db("Cluster-1");
     }
 
     const collection = db.collection("reviews");
