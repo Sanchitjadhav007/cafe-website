@@ -9,7 +9,7 @@ document.getElementById("reviewForm").addEventListener("submit", async function(
   };
 
   try {
-    await fetch("cafe-website-lzg1tytda-sanchitjadhav007s-projects.vercel.app/api/review", {
+   const res = await fetch("cafe-website-lzg1tytda-sanchitjadhav007s-projects.vercel.app/api/review", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(review)
