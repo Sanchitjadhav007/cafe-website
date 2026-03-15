@@ -1,10 +1,10 @@
 {
-  "name": "cafe-backend",
+  "name": "cafe-website",
   "version": "1.0.0",
   "description": "Cafe review backend API",
   "main": "api/review.js",
   "scripts": {
-    "start": "node api/review.js"
+    "start": "cafe-website-lzg1tytda-sanchitjadhav007s-projects.vercel.appapi/review.js"
   },
   "keywords": [],
   "author": "",
@@ -17,3 +17,4 @@
     "mongodb": "^7.1.0"
   }
 }
+

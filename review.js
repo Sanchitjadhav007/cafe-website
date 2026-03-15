@@ -1,3 +1,4 @@
+const API = "https://cafe-website-lzg1tytda-sanchitjadhav007s-projects.vercel.app/api/review";
 // review.js
 document.getElementById("reviewForm").addEventListener("submit", async function(e) {
   e.preventDefault();
