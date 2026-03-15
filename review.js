@@ -9,7 +9,7 @@ document.getElementById("reviewForm").addEventListener("submit", async function(
   };
 
   try {
-   const res = await fetch("cafe-website-lzg1tytda-sanchitjadhav007s-projects.vercel.app/api/review", {
+   const res = await fetch("cafe-website-git-main-sanchitjadhav007s-projects.vercel.app/api/review", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(review)
@@ -27,7 +27,7 @@ document.getElementById("reviewForm").addEventListener("submit", async function(
 // Function to load all reviews
 async function loadReviews() {
   try {
-    const response = await fetch("cafe-website-lzg1tytda-sanchitjadhav007s-projects.vercel.app/api/review", {
+    const response = await fetch("cafe-website-git-main-sanchitjadhav007s-projects.vercel.app/api/review", {
       mode: 'cors' // Added mode: 'cors' here
     });
     const reviews = await response.json();
