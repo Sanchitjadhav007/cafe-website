@@ -2,6 +2,5 @@
   functions = "netlify/functions"
 
 [dev]
-  command = "npm run dev" # Only if you have a dev script, otherwise leave blank
   publish = "."
   functions = "netlify/functions"
