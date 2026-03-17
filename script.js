@@ -1,43 +1,52 @@
-const reviewForm = document.getElementById('reviewForm');
+// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const reviewForm = document.getElementById('reviewForm');
 
-reviewForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    // Safety Check: Only run the code if the form is actually on the page
+    if (!reviewForm) return;
 
-    // 1. Gather data from the form IDs in your review.html
-    const data = {
-        username: document.getElementById('name').value,
-        rating: document.getElementById('rating').value,
-        content: document.getElementById('comment').value
-    };
+    reviewForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    try {
-        // 2. Call the Netlify Function (Note the exact path: /.netlify/functions/...)
-        const response = await fetch('/netlify/functions/save-review', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
+        // 1. Gather data (using optional chaining for safety)
+        const nameInput = document.getElementById('name');
+        const ratingInput = document.getElementById('rating');
+        const commentInput = document.getElementById('comment');
 
-        // 3. Get the raw text first to prevent JSON parse crashes
-        const text = await response.text(); 
-        
+        const data = {
+            username: nameInput?.value || "Anonymous",
+            rating: ratingInput?.value || "0",
+            content: commentInput?.value || ""
+        };
+
         try {
-            const result = JSON.parse(text); 
+            // 2. Fixed Path: Added the '.' before /netlify/
+            const response = await fetch('/.netlify/functions/save-review', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
 
-            if (response.ok) {
-                alert("Success! Your review for Chat Station has been saved.");
-                reviewForm.reset();
-            } else {
-                alert("Error from server: " + (result.error || "Unknown error"));
+            // 3. Get response text
+            const text = await response.text(); 
+            
+            try {
+                const result = JSON.parse(text); 
+
+                if (response.ok) {
+                    alert("Success! Your review for Chat Station has been saved.");
+                    reviewForm.reset();
+                } else {
+                    alert("Error: " + (result.error || "Something went wrong"));
+                }
+            } catch (jsonError) {
+                console.error("Server sent non-JSON response:", text);
+                alert("Server error. Check the console.");
             }
-        } catch (jsonError) {
-            // This catches cases where the server sends a 404/500 plain text error
-            console.error("The server sent text instead of JSON:", text);
-            alert("Server Error: Check the console for details.");
-        }
 
-    } catch (err) {
-        console.error("Connection failed:", err);
-        alert("Could not connect to the server. Is 'netlify dev' running?");
-    }
+        } catch (err) {
+            console.error("Connection failed:", err);
+            alert("Could not connect. Is 'netlify dev' running?");
+        }
+    });
 });
