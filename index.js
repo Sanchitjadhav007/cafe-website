@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require('dotenv').config();
 
 const app = express();
 
@@ -9,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // ✅ Connect MongoDB (LOCAL)
-mongoose.connect("mongodb://127.0.0.1:27017/cafeDB")
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 
@@ -17,7 +18,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/cafeDB")
 const ReviewSchema = new mongoose.Schema({
     name: { type: String, required: true },
     comment: { type: String, required: true },
-    rating: { type: Number, required: true }
+    rating: { type: Number, required: true },
+    createdAt: { type: Date, default: Date.now }
 });
 
 // ✅ Model
@@ -37,7 +39,7 @@ app.post("/api/reviews", async (req, res) => {
 // ✅ GET (Fetch reviews)
 app.get("/api/reviews", async (req, res) => {
     try {
-        const reviews = await Review.find();
+        const reviews = await Review.find().sort({ createdAt: -1 }); // Newest first
         res.json(reviews);
     } catch (err) {
         res.status(500).json({ error: err.message });
