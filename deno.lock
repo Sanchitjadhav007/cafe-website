@@ -11,7 +11,14 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:@netlify/neon@~0.1.2"
+        "npm:@neondatabase/serverless@^1.0.2",
+        "npm:cors@^2.8.6",
+        "npm:dotenv@^17.3.1",
+        "npm:drizzle-kit@~0.31.10",
+        "npm:drizzle-orm@~0.45.1",
+        "npm:express@^5.2.1",
+        "npm:mongodb@^7.1.0",
+        "npm:mongoose@^9.3.1"
       ]
     }
   }

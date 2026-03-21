@@ -1,7 +1,8 @@
 import { integer, pgTable, varchar, text } from 'drizzle-orm/pg-core';
 
-export const posts = pgTable('posts', {
+export const reviews = pgTable('reviews', {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    title: varchar({ length: 255 }).notNull(),
-    content: text().notNull().default('')
+    username: varchar({ length: 255 }).notNull(),
+    rating: integer().notNull(),
+    content: text().notNull()
 });
