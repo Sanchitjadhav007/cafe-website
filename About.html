@@ -11,7 +11,7 @@
 
 
 <nav>
-    <a href="index.html">Home</a>
+    <a href="index.html">Home</a>    
     <a href="About.html">About</a>
     <a href="Menu.html">Menu</a>
     <a href="Contact.html">Contact</a>
@@ -80,61 +80,8 @@
   
   <div id="reviews"></div>
 
-</div> 
-<script>
-
-async function loadReviews(){
-
-const res = await fetch("http://localhost:8888/cafe-website-7ea.../api/review");
-const data = await res.json();
-
-let html = "";
-
-data.forEach(r => {
-
-    let stars = "";
-
-for(let i = 1; i <= 5; i++){
-    if(i <= r.rating){
-        stars += '<span class="star filled">★</span>';
-    } else {
-        stars += '<span class="star">★</span>';
-    }
-}
-
-let firstLetter = r.name.charAt(0).toUpperCase();
-
-html += `
-<div class="review-card">
-
-<div class="review-header">
-<div class="review-avatar">${firstLetter}</div>
-<div class="review-name">${r.name}</div>
 </div>
-
-<p class="stars">${stars}</p>
-
-<p>${r.comment}</p>
-
-</div>
-`;
-
-});
-
-document.getElementById("reviews").innerHTML = html;
-
-}
-
-loadReviews();
-
-</script>
-
-<script>
-fetch("cafe-website-7ea0aivk4-sanchitjadhav007s-projects.vercel.app/api/review")
-.then(res => res.json())
-.then(data => console.log(data));
-</script>
-
+<script src="script.js"></script>
 
 <footer>
     © 2026 Chat Station Cafe

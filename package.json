@@ -1,24 +1,19 @@
 {
-  "name": "cafe-website",
+  "name": "cafe-website-main",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
-  "main": "script.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Sanchitjadhav007/cafe-website.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Sanchitjadhav007/cafe-website/issues"
-  },
-  "homepage": "https://github.com/Sanchitjadhav007/cafe-website#readme",
+  "type": "commonjs",
   "dependencies": {
-    "@netlify/neon": "^0.1.2"
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.0",
+    "mongoose": "^9.3.1"
   }
 }
