@@ -1,0 +1,175 @@
+/* 1. Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 2. Global Styles - Added Smooth Scroll here */
+html {
+    scroll-behavior: smooth;
+    scrollbar-color: rgba(172, 90, 40, 0.78) rgba(255, 255, 255, 0.677); 
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #FFF3E0; /* Warm warm cream background */
+    color: #4E342E;
+    overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+}
+
+/* 3. Navigation Bar (Top) */
+nav {
+    background: #6D4C41;
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #FFD54F;
+}
+
+/* 4. Full-Width Hero Section */
+.hero {
+    width: 100%;
+    height: 90vh;
+    /* Added a linear gradient so the text is always readable against the image */
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                url("https://images.unsplash.com/photo-1509042239860-f550ce710b93") center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    background: rgba(0,0,0,0.5);
+    padding: 20px 40px;
+    border-radius: 8px;
+}
+
+/* 5. Sticky Category Nav (Appears below Hero) */
+.category-nav {
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 15px 10%;
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.644);
+    z-index: 1000;
+}
+
+.category-nav a {
+    text-decoration: none;
+    color: #6D4C41;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: 0.3s;
+    background: #FFF3E0;
+}
+
+.category-nav a:hover {
+    background: #fa6833;
+    color: white;
+}
+
+/* 6. Section & Content Layout */
+ .menu-section {
+    padding: 60px 10%; /* Side padding for content only, not the Hero */
+    text-align: center;
+}
+.section{
+    padding:60px 10%;
+    text-align:center;
+}
+
+.main-title {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #6D4C41;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.menu-section h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #BF360C;
+    border-left : 7px solid #FF7043;
+    border-right : 7px solid #FF7043;
+    border-top: 15px solid #FF7043;
+    border-bottom: 15px solid #FF7043;
+    padding-left: 15px;
+    text-align: center; /* Headers usually look better left-aligned */
+    display:inline-block;
+    padding-bottom: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+}
+
+/* 7. Reusable Card Container */
+.card-container {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* 8. Food Card Styling */
+.food-card, .card {
+    width: 260px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    text-align: left;
+}
+
+.food-card:hover, .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.food-card img, .card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.food-card h3 {
+    font-size: 18px;
+    padding: 15px 15px 5px;
+    color: #4E342E;
+}
+
+.price {
+    padding: 0 15px 15px;
+    font-weight: bold;
+    color: #D84315;
+    font-size: 20px;
+}
+
+/* 9. Footer */
+footer {
+    background: #3E2723;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 40px;
+}

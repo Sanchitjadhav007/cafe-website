@@ -1,0 +1,271 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background:#FFF8F0;
+    color:#4E342E;
+}
+
+/* Navbar */
+nav{
+    background:#6D4C41;
+    padding:15px 0;
+    text-align:center;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 20px;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:#FFD54F;
+}
+
+/* Hero Section */
+.hero{
+    height:90vh;
+    background:url("https://images.unsplash.com/photo-1509042239860-f550ce710b93") center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:3rem;
+    background:rgba(0,0,0,0.5);
+    padding:20px;
+}
+
+/* Section */
+.section{
+    padding:60px 10%;
+    text-align:center;
+}
+
+.section h2{
+    margin-bottom:30px;
+    font-size:2rem;
+}
+
+/* Cards */
+.card-container{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:white;
+    width:250px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card img{
+    width:100%;
+    border-radius:10px;
+}
+
+/* Contact */
+.contact-info{
+    margin:20px 0;
+    font-size:1.1rem;
+}
+
+/* Footer */
+footer{
+    background:#3E2723;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
+
+.location{
+    padding:40px;
+    text-align:center;
+}
+
+.location h2{
+    font-size:32px;
+    color:#800000;
+    margin-bottom:20px;
+}
+
+.cafe-gallery{
+    padding:70px 10%;
+    background:#FFF3E0;
+    text-align:center;
+}
+
+.cafe-gallery h2{
+    font-size:34px;
+    margin-bottom:40px;
+    color:#4E342E;
+}
+
+/* Grid Layout */
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+/* Card */
+
+.gallery-card{
+    position:relative;
+    aspect-ratio:3/4;
+    border-radius:18px;
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.gallery-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.5s;
+}
+
+/* Hover Zoom */
+
+.gallery-card:hover img{
+    transform:scale(1.1);
+}
+
+/* Overlay */
+
+.overlay{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:15px;
+    background:linear-gradient(transparent, rgba(181, 136, 99, 0.5));
+    color:rgb(255, 255, 255);
+    opacity:0;
+    transition:0.4s;
+}
+
+.gallery-card:hover .overlay{
+    opacity:1;
+}
+
+.overlay p{
+    font-size:16px;
+    font-weight:500;
+    font-family: 'Playfair Display', serif;
+}
+
+.overlay h3{
+    font-family: 'Playfair Display', serif;
+    font-size:30px;
+    font-weight:600;
+    text-shadow: 3px 0px 0px rgba(107, 62, 28, 0.716);
+}
+
+.reviews-wrapper{
+width:90%;
+margin:auto;
+overflow:hidden;
+}
+
+#reviews{
+display:flex;
+gap:20px;
+overflow-x:auto;
+padding:20px;
+scroll-behavior:smooth;
+}
+
+.review-card{
+min-width:260px;
+flex-shrink:0;
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0, 0, 0, 0.547);
+}
+#reviews::-webkit-scrollbar{
+height:8px;
+}
+
+#reviews::-webkit-scrollbar-track{
+background:#eee;
+border-radius:10px;
+}
+
+#reviews::-webkit-scrollbar-thumb{
+background:#8B4513;
+border-radius:10px;
+}
+
+.review-name{
+font-weight:bold;
+margin-bottom:5px;
+}
+
+.review-avatar{
+width:40px;
+height:40px;
+background:#8B4513;
+color:white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.review-card:hover{
+transform:translateY(-10px);
+box-shadow:0 12px 25px rgba(0,0,0,0.2);
+}
+
+.review-btn{
+    display:inline-block;
+    padding:12px 20px;
+    background:#9a470b;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:600;
+    margin:20px 0;
+    margin-left: 40px;
+    transition:0.3s;
+}
+
+.review-btn:hover{
+    background:#ff5b0f;
+}
+.stars{
+font-size:20px;
+}
+
+.star{
+color:#ccc;
+}
+
+.star.filled{
+color:#FFD700;
+}
+
+.review-title{
+text-align:center;
+margin-top:30px;
+font-size:35px;
+}

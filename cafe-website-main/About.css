@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #FFF8F0;
+    color: #4E342E;
+    line-height: 1.6;
+}
+
+/* Navbar */
+nav {
+    background: #6D4C41;
+    padding: 15px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #FFD54F;
+}
+
+/* About Section */
+.section {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.section h2 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: #BF360C;
+}
+
+/* Gallery Section */
+.cafe-gallery {
+    padding: 70px 10%;
+    background: #FFF3E0;
+    text-align: center;
+}
+
+.cafe-gallery h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.gallery-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.gallery-card:hover img {
+    transform: scale(1.1);
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(109, 76, 65, 0.9));
+    color: white;
+    opacity: 0;
+    transition: 0.4s;
+    text-align: left;
+}
+
+.gallery-card:hover .overlay {
+    opacity: 1;
+}
+
+/* Reviews Section */
+.reviews-wrapper {
+    width: 95%;
+    margin: 40px auto;
+    overflow: hidden;
+}
+
+#reviews {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px 10px;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #8B4513 #f1f1f1;
+}
+
+#reviews::-webkit-scrollbar {
+    height: 8px;
+}
+
+#reviews::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#reviews::-webkit-scrollbar-thumb {
+    background: #8B4513;
+    border-radius: 4px;
+}
+
+#reviews::-webkit-scrollbar-thumb:hover {
+    background: #654321;
+}
+
+.review-card {
+    min-width: 320px;
+    max-width: 320px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.review-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.review-avatar {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #8B4513, #A0522D);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 15px;
+    box-shadow: 0 4px 10px rgba(139, 69, 19, 0.3);
+}
+
+.review-info {
+    flex: 1;
+}
+
+.review-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.review-rating {
+    font-size: 16px;
+    color: #FFD700;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.review-comment {
+    color: #555;
+    line-height: 1.6;
+    font-size: 14px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.review-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #9a470b, #8B4513);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 20px 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(154, 71, 11, 0.3);
+}
+
+.review-btn:hover {
+    background: linear-gradient(135deg, #ff5b0f, #9a470b);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 91, 15, 0.4);
+}
+
+footer {
+    background: #3E2723;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}

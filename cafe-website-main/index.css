@@ -1,0 +1,217 @@
+/* Global Reset & Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #FFF8F0;
+    color: #4E342E;
+    line-height: 1.6;
+}
+
+/* Navigation */
+nav {
+    background: #6D4C41;
+    padding: 15px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #FFD54F;
+}
+
+/* Hero Section */
+.hero {
+    height: 90vh;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                url("https://images.unsplash.com/photo-1509042239860-f550ce710b93") center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    background: rgba(0,0,0,0.5);
+    padding: 20px 40px;
+    border-radius: 5px;
+}
+
+/* Common Section Styling */
+.section, .cafe-gallery {
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.section h2, .cafe-gallery h2, .review-title {
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    color: #4E342E;
+}
+
+/* Menu Cards */
+.card-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    width: 250px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Gallery Grid */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.gallery-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.gallery-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Overlay Styling */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(78, 52, 46, 0.9));
+    color: white;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.gallery-card:hover .overlay {
+    opacity: 1;
+}
+
+.overlay h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+}
+
+/* Reviews Section */
+.reviews-wrapper {
+    width: 90%;
+    margin: auto;
+}
+
+#reviews {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px 0;
+    scroll-behavior: smooth;
+}
+
+#reviews::-webkit-scrollbar {
+    height: 8px;
+}
+
+#reviews::-webkit-scrollbar-thumb {
+    background: #8B4513;
+    border-radius: 10px;
+}
+
+.review-card {
+    min-width: 280px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.review-card:hover {
+    transform: translateY(-10px);
+}
+
+.review-avatar {
+    width: 45px;
+    height: 45px;
+    background: #8B4513;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.review-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #9a470b;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 30px 0;
+    transition: 0.3s;
+}
+
+.review-btn:hover {
+    background: #ff5b0f;
+}
+
+/* Footer */
+footer {
+    background: #3E2723;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+}
