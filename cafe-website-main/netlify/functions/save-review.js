@@ -1,54 +1,142 @@
-import { neon } from '@netlify/neon';
+const mongoose = require('mongoose');
 
-export const handler = async (event) => {
-  // Use the env variable for the database connection
-  const sql = neon(process.env.NETLIFY_DATABASE_URL);
+let connectionPromise;
 
-  // 1. Safety check: Only allow POST requests
-  if (event.httpMethod !== "POST") {
-    return { 
-      statusCode: 405, 
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Method Not Allowed. Use POST." }) 
+const getHeaders = () => ({
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+});
+
+const ReviewSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 80
+  },
+  comment: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 1000
+  },
+  rating: {
+    type: Number,
+    required: true,
+    min: 1,
+    max: 5
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+const Review = mongoose.models.Review || mongoose.model('Review', ReviewSchema);
+
+const connectToMongo = async () => {
+  const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
+
+  if (!mongoUri) {
+    throw new Error('MONGO_URI environment variable is not set.');
+  }
+
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
+
+  if (!connectionPromise) {
+    connectionPromise = mongoose.connect(mongoUri);
+  }
+
+  return connectionPromise;
+};
+
+const normalizeReview = (body) => {
+  const parsed = typeof body === 'string' ? JSON.parse(body || '{}') : body || {};
+  return {
+    name: String(parsed.name || parsed.username || '').trim(),
+    comment: String(parsed.comment || parsed.content || '').trim(),
+    rating: Number(parsed.rating || 0)
+  };
+};
+
+const serializeReview = (review) => ({
+  id: String(review._id),
+  name: review.name,
+  username: review.name,
+  comment: review.comment,
+  content: review.comment,
+  rating: review.rating,
+  createdAt: review.createdAt
+});
+
+const handler = async (event) => {
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 200, headers: getHeaders(), body: '' };
+  }
+
+  if (event.httpMethod === 'GET') {
+    try {
+      await connectToMongo();
+      const reviews = await Review.find().sort({ createdAt: -1 }).limit(100);
+
+      return {
+        statusCode: 200,
+        headers: getHeaders(),
+        body: JSON.stringify(reviews.map(serializeReview))
+      };
+    } catch (error) {
+      console.error('Review fetch error:', error);
+      return {
+        statusCode: 500,
+        headers: getHeaders(),
+        body: JSON.stringify({ status: 'error', error: error.message })
+      };
+    }
+  }
+
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers: getHeaders(),
+      body: JSON.stringify({ error: 'Method Not Allowed. Use POST or GET.' })
     };
   }
 
   try {
-    // 2. Parse the incoming data
-    const { username, rating, content } = JSON.parse(event.body);
+    const { name, rating, comment } = normalizeReview(event.body);
 
-    // 3. Validation: Make sure the required fields aren't empty
-    if (!username || !rating || !content) {
+    if (!name || !comment || !Number.isInteger(rating) || rating < 1 || rating > 5) {
       return {
         statusCode: 400,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ error: "All fields (name, rating, comment) are required." }),
+        headers: getHeaders(),
+        body: JSON.stringify({ error: 'Name, comment, and a 1-5 rating are required.' })
       };
     }
 
-    // 4. Run the SQL query
-    // This matches the table you just created successfully
-    await sql`
-      INSERT INTO reviews (username, rating, content) 
-      VALUES (${username}, ${Number(rating)}, ${content})
-    `;
+    await connectToMongo();
+    const review = await Review.create({ name, comment, rating });
 
-    // 5. Return success
     return {
       statusCode: 200,
-      headers: { 
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*" // Allows testing from different local ports
-      },
-      body: JSON.stringify({ status: "success", message: "Review saved to Chat Station!" }),
+      headers: getHeaders(),
+      body: JSON.stringify({
+        status: 'success',
+        message: 'Review saved to Chat Station!',
+        review: serializeReview(review)
+      })
     };
-
   } catch (error) {
-    console.error("Database Error:", error);
+    console.error('Database Error:', error);
     return {
       statusCode: 500,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: "error", error: error.message }),
+      headers: getHeaders(),
+      body: JSON.stringify({ status: 'error', error: error.message })
     };
   }
 };
+
+module.exports = { handler };
