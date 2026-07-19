@@ -6,7 +6,7 @@ function submitReview() {
 
     console.log("Submitting review:", { name, message, rating });
 
-    fetch('http://localhost:8080/api/reviews', {
+    fetch('/.netlify/functions/save-review', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ function submitReview() {
 // 👉 Load Reviews
 function loadReviews() {
     console.log("Loading reviews...");
-    fetch('http://localhost:8080/api/reviews')
+    fetch('/.netlify/functions/save-review')
     .then(res => {
         console.log("Response status:", res.status);
         return res.json();
@@ -44,14 +44,14 @@ function loadReviews() {
         }
         reviewsDiv.innerHTML = "";
 
-        if (data.length === 0) {
+        if (!Array.isArray(data) || data.length === 0) {
             reviewsDiv.innerHTML = "<p>No reviews yet.</p>";
             return;
         }
 
         data.forEach(review => {
             const stars = "⭐".repeat(review.rating);
-            const firstLetter = review.name.charAt(0).toUpperCase();
+            const firstLetter = (review.name || 'A').charAt(0).toUpperCase();
 
             reviewsDiv.innerHTML += `
                 <div class="review-card">

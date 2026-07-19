@@ -1,54 +1,87 @@
-import { neon } from '@netlify/neon';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-export const handler = async (event) => {
-  // Use the env variable for the database connection
-  const sql = neon(process.env.NETLIFY_DATABASE_URL);
+dotenv.config();
 
-  // 1. Safety check: Only allow POST requests
-  if (event.httpMethod !== "POST") {
-    return { 
-      statusCode: 405, 
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Method Not Allowed. Use POST." }) 
-    };
+const ReviewSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  comment: { type: String, required: true },
+  rating: { type: Number, required: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const Review = mongoose.models.Review || mongoose.model('Review', ReviewSchema);
+
+let connectionPromise;
+
+async function connectToDatabase() {
+  if (mongoose.connection.readyState === 1) {
+    return;
   }
 
-  try {
-    // 2. Parse the incoming data
-    const { username, rating, content } = JSON.parse(event.body);
+  if (!connectionPromise) {
+    const uri = process.env.MONGO_URI || process.env.MONGODB_URI || process.env.DATABASE_URL;
+    if (!uri) {
+      throw new Error('MONGO_URI environment variable is not set.');
+    }
 
-    // 3. Validation: Make sure the required fields aren't empty
-    if (!username || !rating || !content) {
+    connectionPromise = mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 10000,
+      retryWrites: true,
+      w: 'majority'
+    });
+  }
+
+  await connectionPromise;
+}
+
+export async function handler(event) {
+  try {
+    await connectToDatabase();
+
+    if (event.httpMethod === 'GET') {
+      const reviews = await Review.find().sort({ createdAt: -1 }).limit(50);
       return {
-        statusCode: 400,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ error: "All fields (name, rating, comment) are required." }),
+        statusCode: 200,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        body: JSON.stringify(reviews)
       };
     }
 
-    // 4. Run the SQL query
-    // This matches the table you just created successfully
-    await sql`
-      INSERT INTO reviews (username, rating, content) 
-      VALUES (${username}, ${Number(rating)}, ${content})
-    `;
+    if (event.httpMethod !== 'POST') {
+      return {
+        statusCode: 405,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        body: JSON.stringify({ error: 'Method Not Allowed' })
+      };
+    }
 
-    // 5. Return success
+    const body = JSON.parse(event.body || '{}');
+    const name = body.name || body.username || '';
+    const comment = body.comment || body.content || body.message || '';
+    const rating = Number(body.rating || 0);
+
+    if (!name || !comment || !rating) {
+      return {
+        statusCode: 400,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        body: JSON.stringify({ error: 'Name, comment, and rating are required.' })
+      };
+    }
+
+    const review = await Review.create({ name, comment, rating });
+
     return {
       statusCode: 200,
-      headers: { 
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*" // Allows testing from different local ports
-      },
-      body: JSON.stringify({ status: "success", message: "Review saved to Chat Station!" }),
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ status: 'success', review })
     };
-
   } catch (error) {
-    console.error("Database Error:", error);
+    console.error('Review save error:', error);
     return {
       statusCode: 500,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: "error", error: error.message }),
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ error: error.message })
     };
   }
-};
+}

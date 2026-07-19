@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // ✅ Connect MongoDB (LOCAL)
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI || process.env.MONGODB_URI || process.env.DATABASE_URL)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 
